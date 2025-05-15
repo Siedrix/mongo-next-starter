@@ -4,9 +4,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
-// Define types based on what's used in the component
+// Define URL item interface based on the returned structure from the server action
 interface UrlItem {
-  _id: string
   uuid: string
   url: string
   status: 'new' | 'hasError' | 'ready'
@@ -27,7 +26,7 @@ export default function UrlTable({
   urls,
   pagination
 }: {
-  urls: any[] // Accept any type to avoid issues with mongoose types
+  urls: UrlItem[]
   pagination: PaginationType
 }) {
   const router = useRouter()

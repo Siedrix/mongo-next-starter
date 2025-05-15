@@ -20,7 +20,7 @@ export async function createUrl(prevState: any, formData: FormData) {
 export async function getUrls(page = 1, limit = 10) {
   const skip = (page - 1) * limit
 
-  const [urls, totalCount] = await Promise.all([
+  const [urlDocuments, totalCount] = await Promise.all([
     Url.find({})
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -28,6 +28,17 @@ export async function getUrls(page = 1, limit = 10) {
       .lean(),
     Url.countDocuments({})
   ])
+
+  // Transform mongoose documents to plain objects
+  const urls = urlDocuments.map((url) => ({
+    uuid: url.uuid,
+    url: url.url,
+    status: url.status,
+    title: url.title,
+    content: url.content,
+    createdAt: url.createdAt,
+    updatedAt: url.updatedAt
+  }))
 
   return {
     urls,
