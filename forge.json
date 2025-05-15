@@ -1,0 +1,23 @@
+{
+  "project": {
+    "name": "Personal Knowledge Management System"
+  },
+  "paths": {
+    "logs": "logs/",
+    "fixtures": "fixtures",
+    "tasks": "src/tasks/",
+    "runners": "src/runners/",
+    "tests": "src/tests/"
+  },
+  "infra": {
+    "region": "us-west-2",
+    "bucket": ""
+  },
+  "tasks": {
+    "cloudflare:extract": {
+      "path": "src/tasks/cloudflare/extract.ts",
+      "handler": "extract"
+    }
+  },
+  "runners": {}
+}

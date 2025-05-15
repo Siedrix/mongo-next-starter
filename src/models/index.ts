@@ -3,13 +3,15 @@ import { connectDB } from '@/lib/mongodb'
 
 // Import all models
 import User from './User'
+import Url from './Url'
 
 // Initialize connection
 connectDB()
 
 // Export all models
 export {
-  User
+  User,
+  Url
 }
 
 // Export connection helpers
