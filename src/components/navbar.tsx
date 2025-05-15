@@ -18,12 +18,20 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <nav className="flex items-center space-x-2">
             {status === "authenticated" ? (
-              <Button
-                variant="ghost"
-                onClick={() => signOut({ callbackUrl: "/" })}
-              >
-                Sign Out
-              </Button>
+              <>
+                <Button variant="ghost" asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                <Button variant="ghost" asChild>
+                  <Link href="/admin/urls">Admin</Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Sign Out
+                </Button>
+              </>
             ) : (
               <>
                 <Button variant="ghost" asChild>

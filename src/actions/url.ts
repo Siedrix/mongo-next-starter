@@ -16,3 +16,26 @@ export async function createUrl(prevState: any, formData: FormData) {
 
   redirect(`/url/${newUrl.uuid}`)
 }
+
+export async function getUrls(page = 1, limit = 10) {
+  const skip = (page - 1) * limit
+
+  const [urls, totalCount] = await Promise.all([
+    Url.find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean(),
+    Url.countDocuments({})
+  ])
+
+  return {
+    urls,
+    pagination: {
+      page,
+      limit,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit)
+    }
+  }
+}

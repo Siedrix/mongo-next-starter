@@ -12,7 +12,7 @@ export default async function middleware(request: NextRequestWithAuth) {
   }
 
   // Protected pages that should redirect to login if user is not logged in
-  if (!isAuthenticated && request.nextUrl.pathname.startsWith("/dashboard")) {
+  if (!isAuthenticated && (request.nextUrl.pathname.startsWith("/dashboard") || request.nextUrl.pathname.startsWith("/admin"))) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -20,5 +20,5 @@ export default async function middleware(request: NextRequestWithAuth) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/register"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/login", "/register"],
 };
