@@ -1,5 +1,7 @@
 import  mongoose, { Schema, model } from  "mongoose";
 
+export type UserRole = "admin" | "regular";
+
 export interface UserDocument {
   _id: string;
   email: string;
@@ -7,6 +9,7 @@ export interface UserDocument {
   name: string;
   phone: string;
   image: string;
+  role: UserRole;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,6 +31,11 @@ const UserSchema = new Schema<UserDocument>({
   name: {
     type: String,
     required: [true, "Name is required"]
+  },
+  role: {
+    type: String,
+    enum: ["admin", "regular"],
+    default: "regular"
   }
 },
 {

@@ -9,10 +9,7 @@ const COOKIE_PREFIX = process.env.NEXTAUTH_COOKIE_PREFIX || 'app';
 declare module "next-auth" {
   interface Session {
     user: {
-      id?: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
+      id: string;
     }
   }
   interface User {
@@ -22,7 +19,7 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id?: string;
+    id: string;
   }
 }
 
@@ -97,9 +94,7 @@ export const authOptions: NextAuthOptions  = {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-      }
+      session.user.id = token.id;
       return session;
     }
   }

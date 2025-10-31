@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
-export function Navbar() {
+type NavbarProps = {
+  isAdmin?: boolean;
+};
+
+export function Navbar({ isAdmin = false }: NavbarProps) {
   const { status } = useSession();
 
   return (
@@ -18,12 +22,19 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <nav className="flex items-center space-x-2">
             {status === "authenticated" ? (
-              <Button
-                variant="ghost"
-                onClick={() => signOut({ callbackUrl: "/" })}
-              >
-                Sign Out
-              </Button>
+              <>
+                {isAdmin && (
+                  <Button variant="ghost" asChild>
+                    <Link href="/admin">Admin</Link>
+                  </Button>
+                )}
+                <Button
+                  variant="ghost"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Sign Out
+                </Button>
+              </>
             ) : (
               <>
                 <Button variant="ghost" asChild>
