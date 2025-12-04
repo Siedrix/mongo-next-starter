@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Provider } from "./provider";
 import { Inter } from "next/font/google";
 import { Navbar } from "@/components/navbar";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
 import { getSessionUser } from "@/lib/session";
 import "./globals.css";
 
@@ -19,7 +18,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const user = await getSessionUser();
   const isAdmin = user?.role === "admin";
 

@@ -7,7 +7,7 @@ import { EditUserForm } from "./edit-user-form";
 export default async function AdminEditUserPage({
   params,
 }: {
-  params: { uuid: string };
+  params: Promise<{ uuid: string }>;
 }) {
   const isAdmin = await is("admin");
 
@@ -15,7 +15,8 @@ export default async function AdminEditUserPage({
     redirect("/dashboard");
   }
 
-  const user = await User.findById(params.uuid).select("-password");
+  const { uuid } = await params;
+  const user = await User.findById(uuid).select("-password");
 
   if (!user) {
     notFound();

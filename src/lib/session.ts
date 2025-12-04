@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
 import { User } from "@/models";
 import type { UserDocument, UserRole } from "@/models/User";
 
 export async function getSessionUser(): Promise<UserDocument | null> {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.user?.id) {
     return null;
